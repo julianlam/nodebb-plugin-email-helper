@@ -1,0 +1,9 @@
+{
+	"id": "nodebb-plugin-email-helper",
+	"url": "https://github.com/julianlam/nodebb-plugin-email-helper",
+	"library": "./library.js",
+	"hooks": [
+		{ "hook": "static:app.load", "method": "init" },
+		{ "hook": "filter:email.send", "method": "interceptEmail" }
+	]
+}
