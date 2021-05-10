@@ -16,7 +16,7 @@ const renderEmail = (req, res, next) => {
 	}
 	plugin._res = res;
 
-	socketAdmin.email.test({ uid: req.uid }, { template: req.params.template }, function () {
+	socketAdmin.email.test({ uid: req.uid }, { template: req.params.template, payload: req.query }, function () {
 		winston.verbose('[email-helper] Rendered email (' + req.params.template + ')');
 	});
 };
