@@ -4,6 +4,6 @@
 	"library": "./library.js",
 	"hooks": [
 		{ "hook": "static:app.load", "method": "init" },
-		{ "hook": "filter:email.send", "method": "interceptEmail" }
+		{ "hook": "static:email.send", "method": "interceptEmail" }
 	]
 }

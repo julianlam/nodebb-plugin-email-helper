@@ -16,20 +16,20 @@ const renderEmail = (req, res, next) => {
 	}
 	plugin._res = res;
 
-	socketAdmin.email.test({ uid: req.uid }, { template: req.params.template, payload: req.query }, function () {
-		winston.verbose('[email-helper] Rendered email (' + req.params.template + ')');
+	socketAdmin.email.test({ uid: req.uid }, { template: req.params.template, payload: req.query }, () => {
+		winston.verbose(`[email-helper] Rendered email (${req.params.template})`);
 	});
 };
 
 plugin.init = function (params, callback) {
-	const router = params.router;
+	const { router } = params;
 
 	router.get('/email-helper/:template/:raw?', renderEmail);
 
 	callback();
 };
 
-plugin.interceptEmail = function (data, callback) {
+plugin.interceptEmail = async (data) => {
 	if (plugin._res) {
 		if (plugin._res.locals.raw) {
 			plugin._res.json(data._raw);
@@ -38,7 +38,8 @@ plugin.interceptEmail = function (data, callback) {
 		}
 		delete plugin._res;
 	}
-	callback(null, data);
+
+	return data;
 };
 
 module.exports = plugin;
